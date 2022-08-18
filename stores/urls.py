@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 app_name = 'stores'
 urlpatterns = [
     path('auth/login/', views.StoreAuthHandler.as_view(), name='login'),

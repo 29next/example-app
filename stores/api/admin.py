@@ -1,6 +1,7 @@
-from urllib import response
 import requests
+
 from django.conf import settings
+
 
 class Api(object):
 
