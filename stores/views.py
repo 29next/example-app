@@ -24,24 +24,24 @@ class StoreAuthHandler(RedirectView):
         store_id = network_domain.split('.', 1)[0]
         store = Store.objects.filter(reference_id=store_id, status=True)
 
+        # Initial install flow doesnt have a token parameter
         if network_domain and not token:
-            # If store doesnt exist or inactive
-            if not store.exists():
-                permission_setup_url = 'https://{network_domain}/oauth2/authorize/?response_type=code&'
-                permission_setup_url += 'client_id={client_id}&redirect_uri={redirect_uri}&scope={scopes}'
-                redirect_url= permission_setup_url.format(
-                    network_domain=network_domain,
-                    client_id=settings.CLIENT_ID,
-                    redirect_uri= settings.APP_DOMAIN + reverse('stores:setup'),
-                    scopes=settings.SCOPES
-                )
-                return redirect_url
+            permission_setup_url = 'https://{network_domain}/oauth2/authorize/?response_type=code&'
+            permission_setup_url += 'client_id={client_id}&redirect_uri={redirect_uri}&scope={scopes}'
+            redirect_url= permission_setup_url.format(
+                network_domain=network_domain,
+                client_id=settings.CLIENT_ID,
+                redirect_uri= settings.APP_DOMAIN + reverse('stores:setup'),
+                scopes=settings.SCOPES
+            )
+            return redirect_url
+
+        # If token is present, the app is installed on a store
         elif token:
             user = authenticate(self.request, token=token)
             if user is not None:
                 auth_login(self.request, user)
                 return reverse('stores:detail', args=[store.first().id])
-
         else:
             return '/'
 
@@ -52,6 +52,8 @@ class StoreAuthSetup(RedirectView):
         network_domain = self.request.GET.get('store', None)
         store_id = network_domain.split('.', 1)[0]
         auth_code = self.request.GET.get('code', None)
+
+        # Request a new api access token
         url = 'https://{}/oauth2/token/'.format(network_domain)
         data = {
             'grant_type': 'authorization_code',
@@ -61,12 +63,14 @@ class StoreAuthSetup(RedirectView):
             'code': auth_code
         }
         response = requests.post(url, data=data)
-        # Save API Access Token with Store
+
+        # Save api access token with store for future use
         store, created = Store.objects.get_or_create(reference_id=store_id)
         store.api_token = response.json().get('access_token', '')
         store.status = True
         store.save()
-        # Setup Webhooks
+
+        # Setup webhooks to listen to new orders and app.uninstalled event
         Api(store_id, store.api_token).create_webhook(
             settings.WEBHOOK_EVENTS, settings.WEBHOOK_NAME,
             settings.APP_DOMAIN + reverse('stores:webhook_processor')
