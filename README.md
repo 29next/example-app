@@ -5,7 +5,7 @@ This app is intended as a demonstration of how to use the [29 Next App Framework
 #### Features
 
 * [Oauth Setup Flow](https://developers.29next.com/apps/oauth/)
-* Session Token Login
+* [Session Token Login](https://developers.29next.com/apps/oauth/session-auth/)
 * [Admin API access and scopes](https://developers.29next.com/api/admin/)
 * [Webhooks](https://developers.29next.com/webhooks/) setup, data validation, and `app.uinstalled` event handling.
 
