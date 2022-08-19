@@ -22,14 +22,12 @@ class Api(object):
     def _get(self, path):
         headers = self._default_headers()
         url = self._build_url(path)
-        response = requests.get(url, headers=headers)
-        return response
+        return requests.get(url, headers=headers)
 
     def _post(self, path, data):
         headers = self._default_headers()
         url = self._build_url(path)
-        response = requests.post(url, json=data, headers=headers)
-        return response
+        return requests.post(url, json=data, headers=headers)
 
     def create_webhook(self, events, name, target):
         path = 'webhooks/'
@@ -39,14 +37,16 @@ class Api(object):
             'target': target,
             'secret_key': settings.WEBHOOK_SECRET
         }
-        response = self._post(path, data)
-        return response
+        return self._post(path, data)
 
     def get_orders(self):
         path = 'orders/'
         return self._get(path)
 
-
     def get_products(self):
         path = 'products/'
+        return self._get(path)
+
+    def get_stockrecords(self):
+        path = 'stockrecords/'
         return self._get(path)

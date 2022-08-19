@@ -12,26 +12,32 @@
         <div class="container my-5">
 
             <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col-md-10">
 
-                    <h2>{{object.reference_id}} Store Products</h2>
+                    <h2>{{object.reference_id|upper }} Store Stock Records</h2>
 
                     {% if object.status %}
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col" colspan="2">Product</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Partner</th>
+                            <th scope="col">SKU</th>
+                            <th scope="col">Currency</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Num In Stock</th>
                             </tr>
                         </thead>
-                    {% for each in products.results %}
-                        {% if each.structure == "parent" or each.structure == "standalone" %}
-                        <tr>
-                            <td><img class="rounded" style="max-width: 50px;" src="{{ each.images.0.original }}"></td>
-                            <td><strong>{{ each.title }}</strong></td>
-                        </tr>
-                        {% endif %}
+                    {% for each in stockrecords.results %}
+                    <tr>
+                        <td>{{ each.product.name }}</td>
+                        <td><strong>{{ each.partner.name }}</strong></td>
+                        <td><strong>{{ each.partner_sku }}</strong></td>
+                        <td><strong>{{ each.price_currency }}</strong></td>
+                        <td><strong>{{ each.price }}</strong></td>
+                        <td><strong>{{ each.num_in_stock }}</strong></td>
+                    </tr>
                     {% endfor %}
-                    </table>
                     {% else %}
                     <div class="alert alert-danger">App has been uninstalled for this store.</div>
                     {% endif %}

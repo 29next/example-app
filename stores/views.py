@@ -94,7 +94,7 @@ class StoreDetailView(BaseStoreView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = Api(self.object.reference_id, self.object.api_token).get_products().json()
+        context['stockrecords'] = Api(self.object.reference_id, self.object.api_token).get_stockrecords().json()
         return context
 
 
