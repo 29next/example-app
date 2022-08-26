@@ -1,8 +1,8 @@
 {
   "oauth": {
-    "app_url": "https://localdev.alexphelps.me/stores/auth/login/",
+    "app_url": "{{ STORE URL }}/stores/auth/login/",
     "redirect_uris": [
-      "https://localdev.alexphelps.me/stores/auth/setup/"
+      "{{ STORE URL }}/stores/auth/setup/"
     ]
   },
   "locations": {

@@ -13,7 +13,7 @@ This app is intended as a demonstration of how to use the [29 Next App Framework
 
 ### How to Setup
 
-This app uses [Django](https://docs.djangoproject.com/en/4.1/intro/install/), you can follow Django install guides to insure you have Python in your local environment.
+This app uses [Django](https://docs.djangoproject.com/en/4.1/intro/install/), you can follow Django install guides to ensure you have Python in your local environment.
 
 #### Create App In Partner Account
 The first step is to create an App in your 29 Next Partner Account. You'll need your app Client ID and Client Secret later on in the setup process.
@@ -50,28 +50,27 @@ To run the Django app on your local, use the following command.
 python manage.py runserver 0.0.0.0:<PORT>
 ```
 
-#### Push Your App
+#### Setup App
 
-You can now use [App Kit](https://developers.29next.com/apps/app-kit/) to create your [App Manifest](https://developers.29next.com/apps/manifest/) to your partner account and link your development store to your app.
+To set up your App in the platform, you need to configure and push your app. See [Example App Files](/29next/example-app/tree/main/29next-app)
 
-##### App Manifest.json
-*Replace the domain with your local domain path.*
+**App Files**
 ```
-{
-  "oauth": {
-    "app_url": "{YOUR APP DOMAIN }/stores/auth/login/",
-    "redirect_urls": [
-      "{YOUR APP DOMAIN }/stores/auth/setup/"
-    ]
-  }
-}
-
+├── config.yml
+├── manifest.json
+└── snippets
+    └── checkout-message.html
 ```
 
-With your configured manifest.json, you can now build and push your app to your account.
+With your configured `manifest.json` and `config.yml`, you can now build and push your app to your account.
 ```
 nak build && nak push
 ```
 
+#### Push Your App
+
+You can now use [App Kit](https://developers.29next.com/apps/app-kit/) to create your [App Manifest](https://developers.29next.com/apps/manifest/) to your partner account and link your development store to your app.
+
+
 #### Install on Development Store
-You can now connect your app to your development store which will initiate the Oauth setup flow configure Admin API access.
+You can now connect your app to your development store which will initiate the Oauth setup flow and configure Admin API access. :tada:
