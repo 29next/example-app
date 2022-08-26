@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import RedirectView, DetailView, View
+from django.views.generic import RedirectView, DetailView, View, UpdateView
 
 from .api.admin import Api
 from .api.webhooks import webhook_payload_validator
@@ -96,6 +96,12 @@ class StoreDetailView(BaseStoreView, DetailView):
         context = super().get_context_data(**kwargs)
         context['stockrecords'] = Api(self.object.reference_id, self.object.api_token).get_stockrecords().json()
         return context
+
+class StoreUpdateView(BaseStoreView, UpdateView):
+    model = Store
+    template_name = 'store-update.html'
+    fields = ['custom_checkout_message']
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')

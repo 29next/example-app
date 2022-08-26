@@ -8,6 +8,7 @@ class Api(object):
     def __init__(self, store_id, access_token):
         self.base_url = 'https://{}.29next.store/api/admin/'.format(store_id)
         self.access_token = access_token
+        self.client_id = settings.CLIENT_ID
 
     def _build_url(self, path):
         return '{}{}'.format(self.base_url, path)
@@ -28,6 +29,16 @@ class Api(object):
         headers = self._default_headers()
         url = self._build_url(path)
         return requests.post(url, json=data, headers=headers)
+
+    def _put(self, path, data):
+        headers = self._default_headers()
+        url = self._build_url(path)
+        return requests.put(url, json=data, headers=headers)
+
+    def _patch(self, path, data):
+        headers = self._default_headers()
+        url = self._build_url(path)
+        return requests.patch(url, json=data, headers=headers)
 
     def create_webhook(self, events, name, target):
         path = 'webhooks/'
@@ -50,3 +61,7 @@ class Api(object):
     def get_stockrecords(self):
         path = 'stockrecords/'
         return self._get(path)
+
+    def update_app_settings(self, data):
+        path = 'apps/{}/settings/'.format(self.client_id)
+        return self._patch(path, data)

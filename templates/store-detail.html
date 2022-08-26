@@ -1,48 +1,40 @@
+{% extends 'layout.html' %}
 
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Example App Demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-    <body>
-        <div class="container my-5">
-
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-
-                    <h2>{{object.reference_id|upper }} Store Stock Records</h2>
-
-                    {% if object.status %}
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Partner</th>
-                            <th scope="col">SKU</th>
-                            <th scope="col">Currency</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Num In Stock</th>
-                            </tr>
-                        </thead>
-                    {% for each in stockrecords.results %}
-                    <tr>
-                        <td>{{ each.product.name }}</td>
-                        <td><strong>{{ each.partner.name }}</strong></td>
-                        <td><strong>{{ each.partner_sku }}</strong></td>
-                        <td><strong>{{ each.price_currency }}</strong></td>
-                        <td><strong>{{ each.price }}</strong></td>
-                        <td><strong>{{ each.num_in_stock }}</strong></td>
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <div class="alert alert-danger">App has been uninstalled for this store.</div>
-                    {% endif %}
-            </div>
-        </div>
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <h2>{{object.reference_id|upper }} Store Stock Records</h2>
     </div>
-    </body>
-</html>
+    <div class="col text-end">
+        <a class="btn btn-primary" href="{% url 'stores:update' object.id %}">Update Settings</a>
+    </div>
+</div>
+
+
+{% if object.status %}
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Partner</th>
+        <th scope="col">SKU</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Price</th>
+        <th scope="col">Num In Stock</th>
+        </tr>
+    </thead>
+{% for each in stockrecords.results %}
+<tr>
+    <td>{{ each.product.name }}</td>
+    <td><strong>{{ each.partner.name }}</strong></td>
+    <td><strong>{{ each.partner_sku }}</strong></td>
+    <td><strong>{{ each.price_currency }}</strong></td>
+    <td><strong>{{ each.price }}</strong></td>
+    <td><strong>{{ each.num_in_stock }}</strong></td>
+</tr>
+{% endfor %}
+{% else %}
+<div class="alert alert-danger">App has been uninstalled for this store.</div>
+{% endif %}
+
+{% endblock %}

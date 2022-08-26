@@ -1,0 +1,12 @@
+{% if app.settings.example_app_custom_checkout_message %}
+<script>
+console.log('Remote setting message - {{ app.settings.example_app_custom_checkout_message }}');
+
+var content = `<div class='notification notification-warning' style='width:100%; margin-top: 1.5rem;'>
+    <button class='delete'></button>{{ app.settings.example_app_custom_checkout_message }}
+    </div>`;
+
+document.querySelector('.checkout_steps--header_item').insertAdjacentHTML("afterend", content)
+
+</script>
+{% endif %}

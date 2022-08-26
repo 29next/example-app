@@ -1,0 +1,13 @@
+{
+  "oauth": {
+    "app_url": "https://localdev.alexphelps.me/stores/auth/login/",
+    "redirect_uris": [
+      "https://localdev.alexphelps.me/stores/auth/setup/"
+    ]
+  },
+  "locations": {
+    "storefront": {
+      "complete_checkout": "snippets/checkout-message.html"
+    }
+  }
+}
