@@ -4,11 +4,11 @@ This app is intended as a demonstration of how to use the [29 Next App Framework
 
 #### Features
 
-* [Oauth Setup Flow](https://developers.29next.com/apps/oauth/)
-* [Session Token Login](https://developers.29next.com/apps/oauth/session-auth/)
-* [Remove App Settings](https://developers.29next.com/apps/settings/)
-* [Admin API access and scopes](https://developers.29next.com/api/admin/)
-* [Webhooks](https://developers.29next.com/webhooks/) setup, data validation, and `app.uinstalled` event handling.
+* [Oauth Setup Flow](https://developers.29next.com/docs/apps/oauth/)
+* [Session Token Login](https://developers.29next.com/docs/apps/oauth/session-auth/)
+* [Remove App Settings](https://developers.29next.com/docs/apps/settings/)
+* [Admin API access and scopes](https://developers.29next.com/docs/api/admin/permissions/)
+* [Webhooks](https://developers.29next.com/docs/webhooks/) setup, data validation, and `app.uinstalled` event handling.
 
 
 ### How to Setup
