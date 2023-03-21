@@ -1,8 +1,8 @@
 {
   "oauth": {
-    "app_url": "{{ STORE URL }}/stores/auth/login/",
+    "app_url": "{{ APP URL }}/stores/auth/login/",
     "redirect_uris": [
-      "{{ STORE URL }}/stores/auth/setup/"
+      "{{ APP URL }}/stores/auth/setup/"
     ]
   },
   "locations": {
